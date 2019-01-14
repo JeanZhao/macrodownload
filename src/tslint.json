@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "class-name": false,
+    "interface-name": [true,"never-prefix"],
+    "no-string-literal": true,
+    "member-access": false,
+    "array-type": [
+      true,
+      "array-simple"
+    ]
+  },
+  "exclude": [
+    "**/node_modules/**"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "outDir": "../dist",
+    "target": "es5",
+    "declaration": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2017"],
+    "noImplicitAny": false,
+    "removeComments": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [
+      "../node_modules/@types/",
+      "@types"
+    ]
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "../node_modules/*"
+  ]
+}
