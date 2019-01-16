@@ -37,7 +37,7 @@ let test = new md.MacroDownload();
 test.download(tasks, {site: 'http://localhost:3000'});  
 
 # Disconnect  
-test.closeBrowser();  
+test.close();  
 
 # Monitoring task status  
 

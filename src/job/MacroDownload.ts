@@ -35,7 +35,7 @@ export class MacroDownload {
         return result;
     }
 
-    public async closeBrowser() {
+    public async close() {
         await this.utils.delay(DefaultConfig.indexPageDelay);
         await this.browser.close();
         await pidUsage.clear();
