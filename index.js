@@ -42,9 +42,7 @@ function test() {
         macroId: 'q1'
     },
     ];
-    te.runningSteam.subscribe(i => {
-        winston.warn(JSON.stringify(i));
-    });
+    te.runningSteam.subscribe(i => winston.warn(JSON.stringify(i)));
 
     te.download(tasks, {site: 'http://localhost:3000', launchOptions: {timeout: 60000}})
         .then(() => te.closeBrowser());

@@ -9,9 +9,10 @@ export interface TaskStatus {
      */
     name: string;
     /**
-     * process id for the browser
+     * process info for the browser
      */
-    pid: number;
+    processInfo: ProcessInfo;
+
     /**
      * basis for calculating progress
      */
@@ -38,4 +39,9 @@ export interface TaskStatus {
 export interface ERROR {
     type: string,
     info: string
+}
+
+export interface ProcessInfo {
+    pid: number,
+    cpu: number
 }

@@ -7,9 +7,9 @@ import {Subject} from "rxjs";
 import {Options, LaunchOptions} from "../model/Options";
 import {DefaultConfig} from "../model/defaultConfig";
 import {Task} from "../model/Task";
-import {ERROR, TaskStatus} from "../model/TaskStatus";
+import {ERROR, ProcessInfo, TaskStatus} from "../model/TaskStatus";
 import * as winston from "winston";
-// import pidusage, { Stat } from 'pidusage';
+import * as pidUsage from 'pidusage';
 
 export class MacroDownload {
     private utils = new UtilService();
@@ -17,7 +17,7 @@ export class MacroDownload {
     private launch: LaunchOptions;
     private runningList: TaskStatus[] = [];
 
-    public runningSteam: Subject<any> = new Subject<any>();
+    public runningSteam: Subject<TaskStatus[]> = new Subject<TaskStatus[]>();
 
     constructor() {
     }
@@ -38,29 +38,29 @@ export class MacroDownload {
     public async closeBrowser() {
         await this.utils.delay(DefaultConfig.indexPageDelay);
         await this.browser.close();
+        await pidUsage.clear();
         this.browser = null;
         this.launch = null;
         this.runningSteam = null;
         return;
     }
 
+    public async getCpuProcess(processId?: number): Promise<ProcessInfo> {
+        let pid = processId || this.getRunningProcess().pid;
+        let cpu = 0;
+        if (pid) {
+            let stat = await pidUsage(pid);
+            cpu = stat.cpu ? +(stat.cpu).toFixed(2) : 0;
+        }
+        return {pid, cpu};
+    }
+
     public getRunningProcess() {
         return this.browser ? this.browser.process() : {};
     }
 
-    public getCpuProcess(pid: number): Promise<any> {
-        // TODO enhance with pidusage
-        // return new Promise((resolve, reject) => {
-        //     pidusage(pid, (err, stas) => {
-        //         if (err) reject(err);
-        //         resolve(stas);
-        //     })
-        // });
-        return Promise.resolve();
-    }
-
-    public initTaskList(tasks: Task[]) {
-        const processId = this.getRunningProcess().pid;
+    public async initTaskList(tasks: Task[]) {
+        const processInfo = await this.getCpuProcess();
         tasks.forEach(task => {
             const index = this.runningList.findIndex(t => t.name === task.name && t.macroId === task.macroId);
             if (index !== -1) {
@@ -68,7 +68,7 @@ export class MacroDownload {
             } else {
                 this.runningList.push({
                     "name": task.name,
-                    "pid": processId,
+                    "processInfo": processInfo,
                     "macroId": task.macroId,
                     "total": task.downloadLink.filter(i => !!i.downloadLink).length,
                     "success": 0,
@@ -146,7 +146,7 @@ export class MacroDownload {
                 && !UtilService.isEqualValue(this.launch, options.launchOptions));
     }
 
-    private pushList(item: { task: Task, success?: number, err?: ERROR }): void {
+    private async pushList(item: { task: Task, success?: number, err?: ERROR }) {
         const index = this.runningList.findIndex(t => t.name === item.task.name && t.macroId === item.task.macroId);
         if (index !== -1) {
             let curLink = this.runningList[index];
@@ -162,6 +162,7 @@ export class MacroDownload {
                 }
             }
 
+            curLink.processInfo = await this.getCpuProcess(curLink.processInfo.pid);
             this.runningSteam.next(this.runningList);
         }
     }
