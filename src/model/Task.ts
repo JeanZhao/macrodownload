@@ -50,6 +50,6 @@ export interface linkInfo {
     /**
      * selector for download link
      */
-    downloadLink?: string;
+    downloadLink: string;
 
 }
