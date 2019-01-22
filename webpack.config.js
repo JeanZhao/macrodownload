@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     mode: 'production',
     output: {
-        library: 'macro-download',
+        library: 'macro-execution',
         filename: '[name].min.js',
         path: path.join(__dirname, "dist"),
         libraryTarget: 'umd',

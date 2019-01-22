@@ -1,6 +1,6 @@
 {
-  "name": "macro-download",
-  "version": "1.0.0",
+  "name": "macro-execution",
+  "version": "1.0.2",
   "description": "This is a plug-in based on puppeteer.",
   "main": "dist/macrodownload.min.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,10 @@
     "tag": "latest",
     "access": "public"
   },
+  "keywords": [
+    "macro",
+    "execution"
+  ],
   "author": "jeanzhao",
   "license": "ISC",
   "dependencies": {
