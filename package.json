@@ -1,13 +1,20 @@
 {
-  "name": "macro-execution",
+  "name": "macro-download",
   "version": "1.0.0",
   "description": "This is a plug-in based on puppeteer.",
-  "main": "index.js",
+  "main": "dist/macrodownload.min.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "node index.js",
-    "build": "webpack",
-    "prestart": "webpack",
-    "start": "node index.js"
+    "build": "webpack"
+  },
+  "files": [
+    "dist/macrodownload.min.js",
+    "dist/macrodownload.min.js.map",
+    "dist/**/*.d.ts"
+  ],
+  "publishConfig": {
+    "tag": "latest",
+    "access": "public"
   },
   "author": "jeanzhao",
   "license": "ISC",

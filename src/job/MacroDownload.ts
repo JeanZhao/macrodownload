@@ -22,7 +22,7 @@ export class MacroDownload {
     constructor() {
     }
 
-    static getCustomizedOptions(options?: Options): Options {
+    static getCustomizedOptions(options: Options): Options {
         let result: any = Object.assign({}, DefaultConfig);
         if (options.launchOptions) {
             Object.assign(result.launchOptions, options.launchOptions);

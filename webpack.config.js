@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     mode: 'production',
     output: {
-        library: 'core',
+        library: 'macro-download',
         filename: '[name].min.js',
         path: path.join(__dirname, "dist"),
         libraryTarget: 'umd',
@@ -37,7 +37,7 @@ module.exports = {
     externals: [nodeExternals(), '../config'],
     devtool: "source-map",
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+       // new CleanWebpackPlugin(['dist']),
         new UglifyJsPlugin({
             sourceMap: true,
             uglifyOptions: {
