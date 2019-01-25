@@ -1,6 +1,6 @@
 {
   "name": "macro-execution",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This is a plug-in based on puppeteer.",
   "main": "dist/macrodownload.min.js",
   "types": "dist/index.d.ts",
