@@ -20,6 +20,10 @@
     "macro",
     "execution"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JeanZhao/macrodownload.git"
+  },
   "author": "jeanzhao",
   "license": "MIT",
   "dependencies": {
